@@ -1,3 +1,15 @@
+canvas {
+    display: block;
+    vertical-align: bottom;
+  }
+  
+  #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+  }
+
 #myDIV{
     color: #000;
 }
@@ -281,12 +293,12 @@
 body{
     background-color: #000;
 }
-canvas{ 
+/*canvas{ 
     display: block; 
     vertical-align: bottom; 
 }
 /* ---- particles.js container ---- */ 
-#particles-js{  
+/*#particles-js{  
     position: absolute;
     width: 100%; 
     height: 100%; 
@@ -302,7 +314,7 @@ canvas{
   top: -100px;
   position: fixed !important;
 }
-
+*/
 .serv-hero{
     padding-bottom: 0px;
     margin-bottom: 0px;
