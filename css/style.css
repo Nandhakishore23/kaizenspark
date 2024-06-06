@@ -295,6 +295,13 @@ canvas{
     background-size: cover; 
     background-position: 50% 50%; 
 } 
+.particles-js-canvas-el {
+  width: 100vmax !important;
+  height: 100vmax !important;
+  z-index: 0;
+  top: -100px;
+  position: fixed !important;
+}
 
 .serv-hero{
     padding-bottom: 0px;
