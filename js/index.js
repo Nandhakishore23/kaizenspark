@@ -1,13 +1,75 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzCDksXerSyjryMzeooIb_QAEA53rIC3m1KBceRd2WLJh_AHT4LhTf0aHw7CJGJFrec/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbygL3hvZk5UGYFYjesgndaEaM-E0i7ExjKCEDJlhlkVG93YA3T7nn9bmKHsFeOVv6vo/exec'
 const form = document.forms['contact-form']
+
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var name = document.getElementById('name');
+  var number = document.getElementById('number');
+  var email = document.getElementById('email');
+  var message = document.getElementById('message');
   
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-  .then(response => alert("Thank you! your form is submitted successfully." ))
-  .then(() => { window.location.reload(); })
-  .catch(error => console.error('Error!', error.message))
-})
+  var fields = [name, number, email, message];
+  var errorMessages = ['nameError', 'numberError', 'emailError', 'messageError'];
+  fields.forEach(function(field) {
+      field.classList.remove('error');
+  });
+  errorMessages.forEach(function(id) {
+      document.getElementById(id).textContent = '';
+  });
+
+  var valid = true;
+  var errorMessage = '';
+
+  if (name.value.trim() === '') {
+      valid = false;
+      name.classList.add('error');
+      document.getElementById('nameError').textContent = 'Name is required.';
+      errorMessage += 'Name is required.<br>';
+  }
+  
+  if (number.value.trim() === '') {
+      valid = false;
+      number.classList.add('error');
+      document.getElementById('numberError').textContent = 'Phone number is required.';
+      errorMessage += 'Phone number is required.<br>';
+  }
+  
+  if (email.value.trim() === '') {
+      valid = false;
+      email.classList.add('error');
+      document.getElementById('emailError').textContent = 'Email is required.';
+      errorMessage += 'Email is required.<br>';
+  }
+  
+  if (message.value.trim() === '') {
+      valid = false;
+      message.classList.add('error');
+      document.getElementById('messageError').textContent = 'Message is required.';
+      errorMessage += 'Message is required.<br>';
+  }
+  if (valid) {
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    Swal.fire({
+      icon: 'success',
+      title: 'Form Submitted Successfully!',
+      text: 'Thank you for getting in touch with us.',
+  }).then((result) => {
+      if (result.isConfirmed) {
+          document.getElementById('contactForm').reset();
+          if (window.history && window.history.pushState) {
+              window.history.pushState(null, null, window.location.href);
+          }
+      }
+  });
+      
+  } else {
+      Swal.fire({
+          icon: 'error',
+          title: 'Form Validation Failed',
+          html: errorMessage,
+      });
+  }
+});
 
 function myFunction1() {
     var x = document.getElementById("myDIV");
